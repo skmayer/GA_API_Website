@@ -1,0 +1,64 @@
+@font-face {
+    font-family: FastFuriousFont;
+    src: url(Antique-Olive-Std-Nord-Italic.ttf);
+}
+
+body {
+  background-color: lightgrey;
+  font-size: 16px;
+  font-family: FastFuriousFont;
+  padding: 2rem;
+}
+
+header {
+  text-align: center;
+  margin: 3rem 0px;
+}
+
+h1 {
+  text-align: center;
+  margin: 3rem 0px;
+}
+
+
+img {
+  width: 50%;
+  border-radius: 1em;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+.menu-item {
+  float: left;
+}
+
+.menu-item a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+
+ul li {
+  border: 1px solid #ddd; /* Add a thin border to each list item */
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6; /* Add a grey background color */
+  padding: 12px; /* Add some padding */
+}
