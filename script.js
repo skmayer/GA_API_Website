@@ -2,36 +2,46 @@
 let searchZip = document.getElementById('searchZip')
 let searchType = document.getElementById('searchType')
 let searchInput = document.querySelector('input')
+let selectedItem = document.getElementById('searchZip');
 const imageDiv = document.querySelector('div')
 const h1 = document.querySelector('h1')
 const list = document.querySelector('ul')
 
-// button.addEventListener('click', async () => {
-//     let breed = breedInput.value
-//     let response = await axios.get(
-//         `https://dog.ceo/api/breed/${breed}/images/random`)
-//     let dogPic = response.data.message
-//     imageDiv.innerHTML = `<img src=${dogPic}>`
-// })
-
-if(searchZip){
+if(searchZip){   
     searchZip.addEventListener('click', async () => {
+        while (list.firstChild) {
+            list.removeChild(list.firstChild);
+          }
+
         let zip = searchInput.value
         let response = await axios.get(
             `https://api.openbrewerydb.org/breweries?by_postal=${zip}`)
         let breweries = response.data;
         if(breweries.length === 0){
-            h1.innerHTML = "Sorry, there are no breweries in your hood"
+            h1.innerHTML = "Sorry, there are no breweries in ya hood"
         }
         else {
             breweries.forEach((brewery) => {
                 console.log(brewery)
+                let a = document.createElement("button");
                 let newLine = document.createElement('li')
-                newLine.innerText = brewery.name
-                list.append(newLine)
+                a.innerText = brewery.name
+                a.setAttribute('id', brewery.id);
+               
+                newLine.appendChild(a);
+                list.appendChild(newLine);
+
+                selectedItem = document.getElementById(brewery.id)
             });
         }
     })
+}
+
+if(selectedItem){
+    console.log("breweryId")
+    selectedItem.addEventListener("click", async () => {
+        console.log("selectedItem", selectedItem)
+    });
 }
 
 if(searchType){
