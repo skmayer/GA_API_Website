@@ -1,8 +1,7 @@
-const chuckBtn = document.getElementById('chuck')
-const catBtn = document.getElementById('cat')
-const foodBtn = document.getElementById('food')
-const beerBtn = document.getElementById('beer')
-const breedInput = document.querySelector('input')
+
+let searchZip = document.getElementById('searchZip')
+let searchType = document.getElementById('searchType')
+let searchInput = document.querySelector('input')
 const imageDiv = document.querySelector('div')
 const h1 = document.querySelector('h1')
 const list = document.querySelector('ul')
@@ -15,43 +14,48 @@ const list = document.querySelector('ul')
 //     imageDiv.innerHTML = `<img src=${dogPic}>`
 // })
 
-beerBtn.addEventListener('click', async () => {
-    // let breed = breedInput.value
-    let response = await axios.get(
-        `https://api.openbrewerydb.org/breweries`)
-    let breweries = response.data;
-    
-    breweries.forEach((brewery) => {
-        console.log(brewery)
-        let newLi = document.createElement('li')
-        newLi.innerText = brewery.name
-        list.append(newLi)
-    });
+if(searchZip){
+    searchZip.addEventListener('click', async () => {
+        let zip = searchInput.value
+        let response = await axios.get(
+            `https://api.openbrewerydb.org/breweries?by_postal=${zip}`)
+        let breweries = response.data;
+        if(breweries.length === 0){
+            h1.innerHTML = "Sorry, there are no breweries in your hood"
+        }
+        else {
+            breweries.forEach((brewery) => {
+                console.log(brewery)
+                let newLine = document.createElement('li')
+                newLine.innerText = brewery.name
+                list.append(newLine)
+            });
+        }
+    })
+}
+
+if(searchType){
+    searchType.addEventListener('click', async () => {
+        let type = searchInput.value
+       
+        let response = await axios.get(
+            `https://api.openbrewerydb.org/breweries?by_type=${type}`).catch(function (error) {
+                if (error.response) {
+                  h1.innerHTML = "Sorry, that's not a brewery type we've heard of"
+                }
+              });
+
+        if (response){
+            h1.innerHTML = "Ooo good selection"
+            let breweries = response.data;
+
+            breweries.forEach((brewery) => {
+                console.log(brewery)
+                let newLine = document.createElement('li')
+                newLine.innerText = brewery.name
+                list.append(newLine)
+            });
+        }
         
-    // let dogPic = response.data.message
-    // imageDiv.innerHTML = `<img src=${dogPic}>`
-})
-
-chuckBtn.addEventListener('click', async () => {
-    let response = await axios.get(
-        `https://api.chucknorris.io/jokes/random`)
-    let quote = response.data.value
-    console.log(quote)
-    h1.innerHTML = quote
-})
-
-catBtn.addEventListener('click', async () => {
-    let response = await axios.get(
-        `https://cat-fact.herokuapp.com/facts`)
-    let quote = response.data[0].text
-    console.log(response)
-    h1.innerHTML = quote
-})
-
-foodBtn.addEventListener('click', async () => {
-    let response = await axios.get(
-        `https://foodish-api.herokuapp.com/api`)
-    // let quote = response.data[0].text
-    console.log(response)
-    imageDiv.innerHTML = `<img src=${response.data.image}>`
-})
+    })
+}
