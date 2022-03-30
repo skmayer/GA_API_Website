@@ -1,8 +1,15 @@
 # GA_API_Website
 Get Tipsy!
 
-## Overview
+## About
 This project uses teh [Open Brewery API](https://www.openbrewerydb.org/) to return local breweries near you. 
+
+## How to use
+- Open `index.html`
+- Click `By Zip` if you choose to find local breweries by zip code
+```ie: 92110```
+- Click `By Type` if you choose to find local breweries by type
+```ie: micro```
 
 ## Requirments
 Technical Requirements#
