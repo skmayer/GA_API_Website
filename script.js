@@ -20,7 +20,7 @@ if(searchZip){
         breweries = response.data;
         breweriesFound = breweries.length;
         if(breweries.length === 0){
-            h1.innerHTML = "Sorry, there are no breweries in ya hood"
+            h1.innerHTML = "Sorry, there are no breweries in ya hood &#128530"
         }
         else {
             let grammer = breweriesFound == 1 ? "brewery": "breweries";
@@ -62,7 +62,7 @@ if(searchType){
         let response = await axios.get(
             `https://api.openbrewerydb.org/breweries?by_type=${type}`).catch(function (error) {
                 if (error.response) {
-                  h1.innerHTML = "Sorry, that's not a brewery type we've heard of"
+                  h1.innerHTML = "Sorry, that's not a brewery type we've heard of &#129488"
                 }
               });
 
