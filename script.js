@@ -67,7 +67,7 @@ if(searchType){
               });
 
         if (response){
-            h1.innerHTML = `Ooo good selection. Here are some ${type} breweries:`
+            h1.innerHTML = `Here are all the ${type} breweries:`
             let breweries = response.data;
 
             breweries.forEach((brewery) => {
