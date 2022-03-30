@@ -7,7 +7,8 @@ const imageDiv = document.querySelector('div')
 const h1 = document.querySelector('h1')
 const list = document.querySelector('ul')
 
-if(searchZip){   
+if(searchZip){
+    let breweriesFound = 0;;
     searchZip.addEventListener('click', async () => {
         while (list.firstChild) {
             list.removeChild(list.firstChild);
@@ -16,32 +17,42 @@ if(searchZip){
         let zip = searchInput.value
         let response = await axios.get(
             `https://api.openbrewerydb.org/breweries?by_postal=${zip}`)
-        let breweries = response.data;
+        breweries = response.data;
+        breweriesFound = breweries.length;
         if(breweries.length === 0){
             h1.innerHTML = "Sorry, there are no breweries in ya hood"
         }
         else {
-            breweries.forEach((brewery) => {
-                console.log(brewery)
-                let a = document.createElement("button");
-                let newLine = document.createElement('li')
-                a.innerText = brewery.name
-                a.setAttribute('id', brewery.id);
-               
-                newLine.appendChild(a);
-                list.appendChild(newLine);
+            let grammer = breweriesFound == 1 ? "brewery": "breweries";
+            h1.innerHTML = `Found ${breweriesFound} ${grammer} in ${zip}:`
+            let breweries = response.data;
 
-                selectedItem = document.getElementById(brewery.id)
+            breweries.forEach((brewery) => {
+                let breweryName = document.createElement("p");
+                breweryName.innerText = brewery.name
+                breweryName.setAttribute('class', "brewery-name");
+
+                let addressBtn = document.createElement("button");
+                addressBtn.innerText = `${brewery.street}. ${brewery.city}, ${brewery.state}`
+                addressBtn.setAttribute('class', "brewery-address");
+
+                let typeBtn = document.createElement("button");
+                typeBtn.innerText = `${brewery.brewery_type}`
+                typeBtn.setAttribute('class', "brewery-type");
+
+                let phoneBtn = document.createElement("button");
+                phoneBtn.innerText = formatPhoneNumber(brewery.phone)
+                phoneBtn.setAttribute('class', "brewery-phone");
+
+                let newLine = document.createElement('li')
+                newLine.appendChild(breweryName);
+                newLine.appendChild(addressBtn)
+                newLine.appendChild(phoneBtn)
+                newLine.appendChild(typeBtn)
+                list.appendChild(newLine);
             });
         }
     })
-}
-
-if(selectedItem){
-    console.log("breweryId")
-    selectedItem.addEventListener("click", async () => {
-        console.log("selectedItem", selectedItem)
-    });
 }
 
 if(searchType){
@@ -56,16 +67,43 @@ if(searchType){
               });
 
         if (response){
-            h1.innerHTML = "Ooo good selection"
+            h1.innerHTML = `Ooo good selection. Here are some ${type} breweries:`
             let breweries = response.data;
 
             breweries.forEach((brewery) => {
-                console.log(brewery)
+                let breweryName = document.createElement("p");
+                breweryName.innerText = brewery.name
+                breweryName.setAttribute('class', "brewery-name");
+
+                let addressBtn = document.createElement("button");
+                addressBtn.innerText = `${brewery.street}. ${brewery.city}, ${brewery.state}`
+                addressBtn.setAttribute('class', "brewery-address");
+
+                let typeBtn = document.createElement("button");
+                typeBtn.innerText = `${brewery.brewery_type}`
+                typeBtn.setAttribute('class', "brewery-type");
+
+                let phoneBtn = document.createElement("button");
+                phoneBtn.innerText = formatPhoneNumber(brewery.phone)
+                phoneBtn.setAttribute('class', "brewery-phone");
+
                 let newLine = document.createElement('li')
-                newLine.innerText = brewery.name
-                list.append(newLine)
+                newLine.appendChild(breweryName);
+                newLine.appendChild(addressBtn)
+                newLine.appendChild(phoneBtn)
+                newLine.appendChild(typeBtn)
+                list.appendChild(newLine);
             });
         }
         
     })
 }
+
+function formatPhoneNumber(phoneNumberString) {
+    var cleaned = ('' + phoneNumberString).replace(/\D/g, '');
+    var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+    if (match) {
+      return '(' + match[1] + ') ' + match[2] + '-' + match[3];
+    }
+    return "no phone";
+  }
