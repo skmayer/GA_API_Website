@@ -62,3 +62,55 @@ ul li {
   background-color: #f6f6f6; /* Add a grey background color */
   padding: 12px; /* Add some padding */
 }
+
+.brewery-name {
+  font-family: 'georgia';
+  color: black;
+  text-align: left;
+  font-size: 18px;
+  font-style: oblique;
+  font-weight: bold;
+}
+
+
+.brewery-address {
+  background-color: palevioletred;
+  border: none;
+  color: white;
+  padding: 10px 10px;
+  margin-right: 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  border-radius: 12px;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.brewery-type {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 10px;
+  margin-right: 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  border-radius: 12px;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.brewery-phone {
+  background-color: purple;
+  border: none;
+  color: white;
+  padding: 10px 10px;
+  margin-right: 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  border-radius: 12px;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
